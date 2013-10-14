@@ -1,0 +1,25 @@
+apply plugin: 'android-library'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: '*.jar')
+    compile project(':libs:java-library')
+    compile 'com.android.support:support-v4:18.0.0'
+    compile 'org.slf4j:slf4j-api:1.7.5'
+}
+
+android {
+    compileSdkVersion project.compileSdkVersion
+    buildToolsVersion project.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion project.minSdkVersion
+        targetSdkVersion project.targetSdkVersion
+    }
+
+    lintOptions {
+        abortOnError true
+        checkAllWarnings true
+        warningsAsErrors false
+        disable 'AllowBackup'
+    }
+}

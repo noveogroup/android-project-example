@@ -1,0 +1,2 @@
+include ':libs:java-library'
+include ':AndroidLibrary', ':AndroidExample'
