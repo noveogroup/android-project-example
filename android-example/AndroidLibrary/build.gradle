@@ -1,4 +1,5 @@
 apply plugin: 'android-library'
+apply from: rootProject.file('gradle/check.gradle')
 
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
