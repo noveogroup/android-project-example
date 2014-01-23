@@ -11,15 +11,10 @@ android {
     compileSdkVersion project.compileSdkVersion
     buildToolsVersion project.buildToolsVersion
 
-    defaultConfig {
-        minSdkVersion project.minSdkVersion
-        targetSdkVersion project.targetSdkVersion
-    }
-
     lintOptions {
         abortOnError true
         checkAllWarnings true
         warningsAsErrors false
-        disable 'AllowBackup'
+        disable 'ContentDescription', 'InvalidPackage', 'SelectableText', 'SpUsage'
     }
 }

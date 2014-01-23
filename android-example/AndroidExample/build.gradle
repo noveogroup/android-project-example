@@ -17,8 +17,8 @@ android {
     defaultConfig {
         versionCode 1
         versionName '1.0'
-        minSdkVersion project.minSdkVersion
-        targetSdkVersion project.targetSdkVersion
+        minSdkVersion 9
+        targetSdkVersion project.compileSdkVersion
     }
 
     buildTypes {

@@ -14,12 +14,9 @@ allprojects {
         mavenCentral()
     }
 
-    project.ext {
+    ext {
         compileSdkVersion = 19
         buildToolsVersion = "19.0.1"
-
-        minSdkVersion = 9
-        targetSdkVersion = 19
     }
 }
 
