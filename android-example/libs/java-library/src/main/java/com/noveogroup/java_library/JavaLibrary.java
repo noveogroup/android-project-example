@@ -22,4 +22,24 @@ public final class JavaLibrary {
         return context.getPackageName();
     }
 
+    private static boolean findClass(String className) {
+        try {
+            Class.forName(className);
+            return true;
+        } catch (ClassNotFoundException ignored) {
+            return false;
+        }
+    }
+
+    public static String findLibraries() {
+        String providedClassName = "com.noveogroup.provided_library.ProvidedLibrary";
+        String requiredClassName = "com.noveogroup.required_library.RequiredLibrary";
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("find libraries ...\n");
+        builder.append(providedClassName).append(": ").append(findClass(providedClassName)).append("\n");
+        builder.append(requiredClassName).append(": ").append(findClass(requiredClassName)).append("\n");
+        return builder.toString();
+    }
+
 }

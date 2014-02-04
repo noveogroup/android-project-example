@@ -1,2 +1,4 @@
 include ':libs:java-library'
+include ':libs:provided-library'
+include ':libs:required-library'
 include ':AndroidLibrary', ':AndroidExample'
