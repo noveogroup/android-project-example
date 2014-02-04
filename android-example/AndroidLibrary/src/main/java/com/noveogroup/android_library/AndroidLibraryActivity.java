@@ -25,6 +25,7 @@ public class AndroidLibraryActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         Gson gson = JavaLibrary.createGson();
         LOGGER.info("gson created: {}", gson.hashCode());
+        LOGGER.info("use android: {}", JavaLibrary.useAndroid(this));
 
         ImageView imageView = new ImageView(this);
         setContentView(imageView);

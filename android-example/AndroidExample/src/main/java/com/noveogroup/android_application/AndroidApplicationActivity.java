@@ -33,6 +33,7 @@ public class AndroidApplicationActivity extends Activity {
         LOGGER.info("AndroidApplicationActivity::onCreate");
         Gson gson = JavaLibrary.createGson();
         LOGGER.info("gson = " + gson);
+        LOGGER.info("use android: " + JavaLibrary.useAndroid(this));
 
         new Handler().postDelayed(new Runnable() {
             @Override

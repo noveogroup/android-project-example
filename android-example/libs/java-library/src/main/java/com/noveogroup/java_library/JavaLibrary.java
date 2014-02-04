@@ -1,5 +1,7 @@
 package com.noveogroup.java_library;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 
 public final class JavaLibrary {
@@ -14,6 +16,10 @@ public final class JavaLibrary {
 
     public static Gson createGson() {
         return new Gson();
+    }
+
+    public static String useAndroid(Context context) {
+        return context.getPackageName();
     }
 
 }
