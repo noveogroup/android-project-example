@@ -21,7 +21,7 @@ android {
     lintOptions {
         abortOnError true
         checkAllWarnings true
-        warningsAsErrors false
-        disable 'ContentDescription', 'InvalidPackage', 'SelectableText', 'SpUsage'
+        warningsAsErrors true
+        disable 'AllowBackup', 'ContentDescription', 'InvalidPackage', 'SelectableText', 'SpUsage'
     }
 }
