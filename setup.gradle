@@ -19,7 +19,7 @@ tasks.addRule("setup<project> to setup project") { String taskName ->
 
         task gitClone(type: org.ajoberstar.gradle.git.tasks.GitClone) {
             def destination = file(tmpDirectory)
-            uri = 'gitolite@git.noveogroup.com:android-kb-example'
+            uri = 'git@github.com:noveogroup/android-project-example.git'
             destinationPath = destination
             enabled = !destination.exists()
         }
