@@ -16,3 +16,18 @@ Signing Application
 Place keystore files to &lt;PROJECT&gt;/keystore/ directory and write signing properties in a configuration file
 
 release.keystore is an example. alias: release, password: qwerty
+
+HOWTO
+-----
+
+To clean project:
+
+    ./gradlew clean
+
+To build project:
+
+    ./gradlew build
+
+To assemble code without checking and install debug version of the application on a device:
+
+    ./gradlew installDebug
