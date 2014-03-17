@@ -22,10 +22,14 @@
     </rule>
 
     <rule ref="rulesets/design.xml">
+        <!-- if (x != y) { short code block } else { long code block } -->
+        <exclude name="ConfusingTernary" />
         <exclude name="EmptyMethodInAbstractClassShouldBeAbstract" />
     </rule>
 
     <rule ref="rulesets/controversial.xml">
+        <!-- while ((x = update()) != null) { process(x); } -->
+        <exclude name="AssignmentInOperand" />
         <exclude name="AvoidFinalLocalVariable" />
         <exclude name="AvoidLiteralsInIfCondition" />
         <exclude name="AvoidUsingNativeCode" />
