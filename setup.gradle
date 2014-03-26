@@ -9,7 +9,7 @@ buildscript {
 
 project.ext.projectDirectory = ''
 project.ext.tmpDirectory = ''
-project.ext.gitRepository = 'https://github.com/tttzof351/android-project-example.git'
+project.ext.gitRepository = 'https://github.com/noveogroup/android-project-example.git'
 project.ext.defaultName = 'AndroidExample'
 project.ext.defaultProjectType = 'android-simple-example'
 
