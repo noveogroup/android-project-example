@@ -7,46 +7,57 @@ buildscript {
     }
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '1.10'
+project.ext.projectDirectory = ''
+project.ext.tmpDirectory = ''
+project.ext.gitRepository = 'https://github.com/tttzof351/android-project-example.git'
+project.ext.defaultName = 'AndroidExample'
+project.ext.defaultProjectType = 'android-simple-example'
+
+task create << {
+    project.ext.projectDirectory = generateProjectDirectory("$instanceName")    
+    tasks.clone.execute() 
+    tasks.renameProject.execute()
 }
 
-tasks.addRule("setup<project> to setup project") { String taskName ->
-    if (taskName.startsWith('setup')) {
-        String projectName = taskName - 'setup'
-        String tmpDirectory = ".$projectName-tmp"
-        String projectDirectory = generateProjectDirectory(projectName)
+task clone(type: org.ajoberstar.gradle.git.tasks.GitClone) {
+    project.ext.tmpDirectory = "$instanceName-tmp"
+    def destination = file("$tmpDirectory")
+    uri = "$gitRepository"
+    destinationPath = destination
+    bare = false
+    enabled = !destination.exists()
+}
 
-        task gitClone(type: org.ajoberstar.gradle.git.tasks.GitClone) {
-            def destination = file(tmpDirectory)
-            uri = 'git@github.com:noveogroup/android-project-example.git'
-            destinationPath = destination
-            enabled = !destination.exists()
-        }
+task renameProject << {
+    def projectType = getProjectType()
+    file("$tmpDirectory/" + projectType).renameTo("$projectDirectory")
+    delete "$tmpDirectory" 
 
-        task(taskName, dependsOn: gitClone) << {
-            file("$tmpDirectory/android-example").renameTo(projectDirectory)
-            delete "$tmpDirectory"
-
-            def moduleDirectory = file("$projectDirectory/$projectName")
-            if (moduleDirectory.exists()) {
-                throw new InvalidUserDataException("module $projectName is already exists in android-example project")
-            }
-            file("$projectDirectory/AndroidExample").renameTo(moduleDirectory)
-
-            def settingsFile = file("$projectDirectory/settings.gradle")
-            def settingsContent = settingsFile.getText()
-            settingsFile.delete()
-            settingsFile << settingsContent.replaceAll('AndroidExample', projectName)
-        }
+    def moduleDirectory = file("$projectDirectory/$instanceName")
+    if (moduleDirectory.exists()) {
+        throw new InvalidUserDataException("module " + moduleDirectory + " is already exists in android-example project")
     }
+    file("$projectDirectory/$defaultName").renameTo(moduleDirectory)
+
+    def settingsFile = file("$projectDirectory/settings.gradle")
+    def settingsContent = settingsFile.getText()
+    settingsFile.delete()
+    settingsFile << settingsContent.replaceAll("$defaultName", "$instanceName")
 }
 
 String generateProjectDirectory(String projectName) {
     if (!(projectName ==~ /[a-zA-Z][a-zA-Z0-9]*/)) {
-        throw new InvalidUserDataException("project name ($projectName) should match [a-zA-Z][a-zA-Z0-9]* pattern")
+        throw new InvalidUserDataException("project name ($instanceName) should match [a-zA-Z][a-zA-Z0-9]* pattern")
     }
 
     def matcher = projectName =~ /[A-Z][a-z0-9]*/
     matcher.collect({ (it.length() > 1 ? "-" : "") + it.toLowerCase() }).join() - '-'
+}
+
+String getProjectType() {
+    if (project.hasProperty("projectType")) {
+        project.ext.projectType
+    } else {
+        defaultProjectType        
+    }
 }
