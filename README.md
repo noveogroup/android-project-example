@@ -9,7 +9,7 @@ How to use
 It's simple! You shoud download [setup.gradle](setup.gradle) and run tasks **_create_** with argument **_instanceName_**. For example create your instance **android-simple-example** (by default):
 ```bash
  $ cd <you-projects-foldes>
- $ wget https://github.com/tttzof351/android-project-example/raw/master/setup.gradle
+ $ wget https://github.com/noveogroup/android-project-example/raw/master/setup.gradle
  $ gradle -b setup.gradle create -PinstanceName=MyFunnyApp
 ```
 If you want create instance of **android-extend-example** you must add parameter **_projectType_**. For exapmle:
