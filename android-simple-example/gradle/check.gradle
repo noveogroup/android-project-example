@@ -33,10 +33,10 @@ task pmd(type: Pmd) {
 
     reports {
         xml {
-            destination "$project.buildDir/reports/pmd/pmd-${project.name}.xml"
+            destination "$project.buildDir/reports/pmd/pmd.xml"
         }
         html {
-            destination "$project.buildDir/reports/pmd/pmd-${project.name}.html"
+            destination "$project.buildDir/reports/pmd/pmd.html"
         }
     }
 
@@ -58,7 +58,7 @@ task checkstyle(type: Checkstyle) {
 
     reports {
         xml {
-            destination "$project.buildDir/reports/checkstyle/checkstyle-${project.name}.xml"
+            destination "$project.buildDir/reports/checkstyle/checkstyle.xml"
         }
     }
 
@@ -81,14 +81,14 @@ task findbugs(type: FindBugs) {
 /*
         // that works since gradle 1.9. But gradle android plugin 0.6.3 doesn't supports gradle 1.8 yet.
         xml {
-            destination "$project.buildDir/reports/findbugs/findbugs-${project.name}.xml"
+            destination "$project.buildDir/reports/findbugs/findbugs.xml"
             xml.withMessages true
         }
 */
         // use that default html output until android plugin supports gradle 1.9
         xml.enabled = false
         html.enabled = true
-        html.destination = "$project.buildDir/reports/findbugs/findbugs-${project.name}.html"
+        html.destination = "$project.buildDir/reports/findbugs/findbugs.html"
     }
 
     classpath = files()
@@ -100,7 +100,7 @@ task calcCheck(dependsOn: ['checkstyle', 'findbugs', 'pmd', 'updateProperties'])
     }
 
     /*CheckStyle*/
-    File outputFile = new File("$project.buildDir/reports/checkstyle/checkstyle-${project.name}.xml")
+    File outputFile = new File("$project.buildDir/reports/checkstyle/checkstyle.xml")
     File xslFile = new File("$project.rootDir/gradle/config/checkstyle/checkstyle-noframes-sorted.xsl")
     if (project.htmlGen && outputFile != null && outputFile.exists() && xslFile != null && xslFile.exists()) {
         ant.xslt(
@@ -122,7 +122,7 @@ task calcCheck(dependsOn: ['checkstyle', 'findbugs', 'pmd', 'updateProperties'])
 	logTotal(project.CHECKSTYLE_T, chsVio);
 	
 	/*PMD*/
-	outputFile = new File("$project.buildDir/reports/pmd/pmd-${project.name}.xml")
+	outputFile = new File("$project.buildDir/reports/pmd/pmd.xml")
 	def pmd = new XmlSlurper().parseText(outputFile.text)
 	def pmdVio = ["1":0, "2":0, "3":0, "4":0, "5":0]
 	pmd.file.each() {
@@ -137,7 +137,7 @@ task calcCheck(dependsOn: ['checkstyle', 'findbugs', 'pmd', 'updateProperties'])
 	logTotal(project.PMD_T, pmdVio);
 	
 	/*FindBugs*/
-    outputFile = new File("$project.buildDir/reports/findbugs/findbugs-${project.name}.xml")
+    outputFile = new File("$project.buildDir/reports/findbugs/findbugs.xml")
     xslFile = new File("$project.rootDir/gradle/config/findbugs/fancy.xsl")
     if (project.htmlGen && outputFile != null && outputFile.exists() && xslFile != null && xslFile.exists()) {
         ant.xslt(
@@ -156,7 +156,7 @@ task calcCheck(dependsOn: ['checkstyle', 'findbugs', 'pmd', 'updateProperties'])
 		}
 		logTotal(project.FINDBUGS_T, findVio);
 	} else { /*hack until android plugin supports gradle 1.9*/
-		outputFile = new File("$project.buildDir/reports/findbugs/findbugs-${project.name}.html")
+		outputFile = new File("$project.buildDir/reports/findbugs/findbugs.html")
 		if (outputFile.exists()) {
 			def find = new XmlSlurper().parseText(outputFile.text.substring(outputFile.text.indexOf('>') + 1).replace("&nbsp", ""))
 			def tables = find.body.table.findAll{ it.@class.text().equals("warningtable")}
