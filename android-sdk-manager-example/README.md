@@ -1,12 +1,9 @@
-Android Simple Example
+Android SDK Manager Example
 ===============
 
-It is an example of project configuration.
+It is an example of project configuration with [JakeWharton sdk-manager-plugin](https://github.com/JakeWharton/sdk-manager-plugin) for build project with missing android SDK.
 
 **TODO**: add more information for customers
 
-Setup Android SDK
------------------
 
-You can set ANDROID_SDK environment variables or add sdk.dir properties in your local.properties file.
 
