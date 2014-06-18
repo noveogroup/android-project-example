@@ -14,7 +14,7 @@ allprojects {
     }
 
     ext {
-        compileSdkVersion = 19
+        compileSdkVersion = 17
         buildToolsVersion = "19.0.3"
     }
 }
