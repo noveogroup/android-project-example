@@ -4,6 +4,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:0.10.+'
+        classpath 'com.jakewharton.sdkmanager:gradle-plugin:0.10.+'
     }
 }
 
@@ -18,6 +19,7 @@ allprojects {
     }
 }
 
+apply plugin: 'android-sdk-manager'
 apply plugin: 'android-reporting'
 
 task wrapper(type: Wrapper) {
