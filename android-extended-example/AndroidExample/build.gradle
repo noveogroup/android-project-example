@@ -25,7 +25,7 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
-            packageNameSuffix ".debug"
+            applicationIdSuffix ".debug"
             buildConfigField "boolean", "SHOW_GREETINGS", "Boolean.parseBoolean(\"true\")"
             buildConfigField "String", "GREETINGS", "\"Greetings, My Lord !!!\""
         }
