@@ -1,1 +1,1 @@
-include ':AndroidLibrary', ':AndroidExample'
+include ':AndroidExample'

@@ -159,7 +159,11 @@
         <!-- See http://checkstyle.sf.net/config_misc.html -->
         <module name="ArrayTypeStyle" />
         <module name="TodoComment">
-            <property name="format" value="TODO" />
+            <property name="format" value="(?i)\s+TODO\s+" />
+            <property name="severity" value="info" />
+        </module>
+        <module name="TodoComment">
+            <property name="format" value="(?i)\s+CR\s+" />
             <property name="severity" value="info" />
         </module>
         <module name="UpperEll" />
