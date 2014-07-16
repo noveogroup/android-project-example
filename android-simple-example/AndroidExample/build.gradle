@@ -22,9 +22,13 @@ android {
     }
 
     lintOptions {
-        abortOnError true
+        abortOnError false
         checkAllWarnings true
         warningsAsErrors true
+        xmlReport true
+        xmlOutput file("$project.buildDir/reports/lint/lint-report.xml")
+        htmlReport true
+        htmlOutput file("$project.buildDir/reports/lint/lint-report.html")
         disable 'AllowBackup', 'ContentDescription', 'InvalidPackage', 'SelectableText', 'SpUsage'
     }
 }

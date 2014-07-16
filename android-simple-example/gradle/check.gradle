@@ -69,7 +69,7 @@ task checkstyle(type: Checkstyle) {
 task findbugs(type: FindBugs) {
     ignoreFailures = true
     effort = "max"
-    reportLevel = "high"
+    reportLevel = "low" // "high", "medium" or "low"
     excludeFilter = new File("${project.projectDir}/../gradle/config/findbugs/exclude.xml")
     classes = files("$project.buildDir/intermediates/classes")
 
@@ -78,23 +78,17 @@ task findbugs(type: FindBugs) {
     exclude '**/gen/**'
 
     reports {
-/*
         // that works since gradle 1.9. But gradle android plugin 0.6.3 doesn't supports gradle 1.8 yet.
         xml {
             destination "$project.buildDir/reports/findbugs/findbugs.xml"
             xml.withMessages true
         }
-*/
-        // use that default html output until android plugin supports gradle 1.9
-        xml.enabled = false
-        html.enabled = true
-        html.destination = "$project.buildDir/reports/findbugs/findbugs.html"
     }
 
     classpath = files()
 }
 
-task calcCheck(dependsOn: ['checkstyle', 'findbugs', 'pmd', 'updateProperties']) << {
+task calcCheck(dependsOn: ['checkstyle', 'findbugs', 'pmd', 'updateProperties', 'lint']) << {
     if (!project.doCheck) {
         return
     }
@@ -155,41 +149,19 @@ task calcCheck(dependsOn: ['checkstyle', 'findbugs', 'pmd', 'updateProperties'])
 			logViolation(project.FINDBUGS_T, "priority" + it.@priority.text(), it.SourceLine[0].@start.text(), it.SourceLine[0].@end.text(), it.LongMessage.text())
 		}
 		logTotal(project.FINDBUGS_T, findVio);
-	} else { /*hack until android plugin supports gradle 1.9*/
-		outputFile = new File("$project.buildDir/reports/findbugs/findbugs.html")
-		if (outputFile.exists()) {
-			def find = new XmlSlurper().parseText(outputFile.text.substring(outputFile.text.indexOf('>') + 1).replace("&nbsp", ""))
-			def tables = find.body.table.findAll{ it.@class.text().equals("warningtable")}
-			tables.each() {
-				def tablerows = it.tr.findAll{ it.@class.text().contains("tablerow")}
-				def detailrows = it.tr.findAll{ it.@class.text().contains("detailrow")}
-				for (int i = 0; i < tablerows.size(); ++i) {
-					def priority = tablerows[i].td[0].span.@class.text()
-					priority = priority.substring(priority.length() - 1)
-					def message = tablerows[i].td[1].text()
-					def where = detailrows[i].td[1].p.text()
-					where = where.substring(where.indexOf(")") + 1)
-					++findVio[priority]
-					logViolation("findgugs", "priority" + priority, "", "", message + "\n       " + where)
-				}
-			}
-		}
 	}
-    logTotal(project.FINDBUGS_T, findVio)
-	
+
 	/*Lint*/
 	def lintVio = [Error:0, Warning:0]
-	['DebugOutput', 'ReleaseOutput', 'TestOutput'].each { fileName ->
-		def xmlFile = new File("$project.buildDir/lint/${fileName}.xml")
-		if (xmlFile.exists()) {
-			def lint = new XmlSlurper().parseText(xmlFile.text)
-			lint.issue.each() {
-				++lintVio[it.@severity.text()]
-				logFile(project.LINT_T, it.location.@file.text())
-				logViolation(project.LINT_T, it.@severity.text(), it.location.@line.text(), it.location.@column.text(), it.@message.text())
-			}
-		}
-	}
+    def xmlFile = new File("$project.buildDir/reports/lint/lint-report.xml")
+    if (xmlFile.exists()) {
+        def lint = new XmlSlurper().parseText(xmlFile.text)
+        lint.issue.each() {
+            ++lintVio[it.@severity.text()]
+            logFile(project.LINT_T, it.location.@file.text())
+            logViolation(project.LINT_T, it.@severity.text(), it.location.@line.text(), it.location.@column.text(), it.@message.text())
+        }
+    }
 	logTotal(project.LINT_T, lintVio)
 
     /*do fail if need*/
