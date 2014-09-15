@@ -1,6 +1,6 @@
 File keystoreDirectory = rootProject.file('keystore')
 if (keystoreDirectory.exists()) {
-    keystoreDirectory.eachFileMatch(~/.*\.keystore/) {
+    keystoreDirectory.eachFileMatch(~/.*\.jks/) {
         File configurationFile = new File(it.parentFile, "${it.name}.gradle")
         if (!configurationFile.exists()) {
             String keystoreName = it.name.replaceAll(/\.\w/) { it[1].toUpperCase() }
