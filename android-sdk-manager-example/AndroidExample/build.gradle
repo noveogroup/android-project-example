@@ -1,15 +1,7 @@
 apply plugin: 'android-sdk-manager'
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 apply from: rootProject.file('gradle/signing.gradle')
 apply from: rootProject.file('gradle/check.gradle')
-
-dependencies {
-    compile fileTree(dir: 'libs', include: '*.jar')
-    compile 'com.android.support:support-v4:19.1.0'
-    compile 'org.slf4j:slf4j-api:1.7.7'
-    compile 'com.github.tony19:logback-android-core:1.0.10-2'
-    compile 'com.github.tony19:logback-android-classic:1.0.10-2'
-}
 
 android {
     compileSdkVersion project.compileSdkVersion
@@ -18,7 +10,7 @@ android {
     defaultConfig {
         versionCode 1
         versionName '1.0'
-        minSdkVersion 9
+        minSdkVersion 7
         targetSdkVersion project.compileSdkVersion
     }
 
@@ -28,4 +20,12 @@ android {
         warningsAsErrors true
         disable 'AllowBackup', 'ContentDescription', 'InvalidPackage', 'SelectableText', 'SpUsage'
     }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: '*.jar')
+    compile 'com.android.support:support-v4:20.0.0'
+    compile 'org.slf4j:slf4j-api:1.7.7'
+    compile 'com.github.tony19:logback-android-core:1.0.10-2'
+    compile 'com.github.tony19:logback-android-classic:1.0.10-2'
 }
