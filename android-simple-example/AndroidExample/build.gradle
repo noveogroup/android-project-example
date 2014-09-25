@@ -1,34 +1,31 @@
 apply plugin: 'com.android.application'
-apply from: rootProject.file('gradle/signing.gradle')
 apply from: rootProject.file('gradle/check.gradle')
 
 android {
-    compileSdkVersion project.compileSdkVersion
-    buildToolsVersion project.buildToolsVersion
+    compileSdkVersion 20
+    buildToolsVersion "20.0.0"
 
     defaultConfig {
         versionCode 1
-        versionName '1.0'
+        versionName "1.0"
         minSdkVersion 7
-        targetSdkVersion project.compileSdkVersion
+        targetSdkVersion 20
     }
 
     lintOptions {
-        abortOnError false
-        checkAllWarnings true
-        warningsAsErrors true
-        xmlReport true
-        xmlOutput file("$project.buildDir/reports/lint/lint-report.xml")
-        htmlReport true
-        htmlOutput file("$project.buildDir/reports/lint/lint-report.html")
-        disable 'AllowBackup', 'ContentDescription', 'InvalidPackage', 'SelectableText', 'SpUsage'
+        abortOnError true
+        // for most projects accessibility tools support is out of scope
+        disable 'ContentDescription'
+        // a lot of Java libraries have references to Java SE packages
+        disable 'InvalidPackage'
+        // sp can be scaled by the user's font size preference so can break design
+        disable 'SpUsage'
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: '*.jar')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:support-v4:20.0.0'
     compile 'org.slf4j:slf4j-api:1.7.7'
-    compile 'com.github.tony19:logback-android-core:1.0.10-2'
-    compile 'com.github.tony19:logback-android-classic:1.0.10-2'
+    compile 'com.github.tony19:logback-android-classic:1.1.1-3'
 }

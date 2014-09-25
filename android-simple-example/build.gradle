@@ -7,11 +7,6 @@ buildscript {
 
 allprojects {
     repositories { jcenter() }
-
-    ext {
-        compileSdkVersion = 19
-        buildToolsVersion = "20.0.0"
-    }
 }
 
 task wrapper(type: Wrapper) {
