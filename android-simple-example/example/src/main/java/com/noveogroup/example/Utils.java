@@ -1,5 +1,7 @@
 package com.noveogroup.example;
 
+import java.util.Locale;
+
 public final class Utils {
 
     private Utils() {
@@ -7,7 +9,7 @@ public final class Utils {
     }
 
     public static String process(String input) {
-        return input.toUpperCase();
+        return input.toUpperCase(Locale.US);
     }
 
 }
