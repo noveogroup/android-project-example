@@ -1,20 +1,22 @@
-package com.noveogroup.android_application;
+package com.noveogroup.example;
 
 import android.app.Activity;
 import android.os.Bundle;
 
+import com.noveogroup.android_application.R;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AndroidApplicationActivity extends Activity {
+public class MainActivity extends Activity {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AndroidApplicationActivity.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MainActivity.class);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        LOGGER.info("AndroidApplicationActivity::onCreate");
+        LOGGER.info("MainActivity::onCreate");
     }
 
 }
