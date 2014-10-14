@@ -5,10 +5,7 @@
     xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd"
     xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd">
 
-    <rule ref="rulesets/java/android.xml">
-        <exclude name="ProtectLogD" />
-        <exclude name="ProtectLogV" />
-    </rule>
+    <rule ref="rulesets/java/android.xml" />
 
     <rule ref="rulesets/java/basic.xml" />
 
@@ -16,37 +13,34 @@
 
     <rule ref="rulesets/java/clone.xml" />
 
-    <rule ref="rulesets/java/codesize.xml">
-        <exclude name="ExcessivePublicCount" />
-        <exclude name="TooManyMethods" />
+    <rule ref="rulesets/java/codesize.xml" />
+    <rule ref="rulesets/java/codesize.xml/TooManyMethods">
+        <properties>
+            <property name="maxmethods" value="25" />
+        </properties>
     </rule>
 
-    <rule ref="rulesets/java/comments.xml" />
+    <rule ref="rulesets/java/comments.xml">
+        <exclude name="CommentRequired" />
+    </rule>
 
     <rule ref="rulesets/java/controversial.xml">
         <!-- while ((x = update()) != null) { process(x); } -->
         <exclude name="AssignmentInOperand" />
-        <exclude name="AvoidFinalLocalVariable" />
         <exclude name="AvoidLiteralsInIfCondition" />
-        <exclude name="AvoidUsingNativeCode" />
-        <exclude name="AvoidUsingVolatile" />
-        <exclude name="BooleanInversion" />
+        <exclude name="AvoidPrefixingMethodParameters" />
         <exclude name="DataflowAnomalyAnalysis" />
         <exclude name="NullAssignment" />
         <exclude name="OnlyOneReturn" />
-        <exclude name="UseConcurrentHashMap" />
     </rule>
 
     <rule ref="rulesets/java/coupling.xml">
-        <exclude name="CouplingBetweenObjects" />
-        <exclude name="ExcessiveImports" />
-        <exclude name="LooseCoupling" />
+        <exclude name="LawOfDemeter" />
     </rule>
 
     <rule ref="rulesets/java/design.xml">
         <!-- if (x != y) { short code block } else { long code block } -->
         <exclude name="ConfusingTernary" />
-        <exclude name="EmptyMethodInAbstractClassShouldBeAbstract" />
     </rule>
 
     <rule ref="rulesets/java/empty.xml" />
@@ -65,7 +59,6 @@
 
     <rule ref="rulesets/java/naming.xml">
         <exclude name="AbstractNaming" />
-        <exclude name="AvoidFieldNameMatchingTypeName" />
         <exclude name="LongVariable" />
         <exclude name="ShortClassName" />
         <exclude name="ShortVariable" />
@@ -77,15 +70,9 @@
         <exclude name="MethodArgumentCouldBeFinal" />
     </rule>
 
-    <rule ref="rulesets/java/strictexception.xml">
-        <exclude name="AvoidThrowingRawExceptionTypes" />
-    </rule>
+    <rule ref="rulesets/java/strictexception.xml" />
 
-    <rule ref="rulesets/java/strings.xml">
-        <exclude name="AvoidDuplicateLiterals" />
-    </rule>
-
-    <rule ref="rulesets/java/sunsecure.xml" />
+    <rule ref="rulesets/java/strings.xml" />
 
     <rule ref="rulesets/java/typeresolution.xml">
         <exclude name="LooseCoupling" />

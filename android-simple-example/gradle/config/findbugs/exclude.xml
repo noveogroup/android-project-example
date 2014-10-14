@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <FindBugsFilter>
-    <FindBugsFilter>
-        <Match>
-            <Class name="~.*\.R\$.*" />
-            <Bug code="Nm" />
-        </Match>
-    </FindBugsFilter>
+    <Match>
+        <Class name="~.*\.R\$.*" />
+        <Bug code="Nm" />
+    </Match>
+    <Match>
+        <Bug code="UwF" />
+    </Match>
 </FindBugsFilter>
