@@ -7,57 +7,35 @@ buildscript {
     }
 }
 
-project.ext.projectDirectory = ''
-project.ext.tmpDirectory = ''
-project.ext.gitRepository = 'https://github.com/noveogroup/android-project-example.git'
-project.ext.defaultName = 'AndroidExample'
-project.ext.defaultProjectType = 'android-simple-example'
-
-task create << {
-    project.ext.projectDirectory = generateProjectDirectory("$instanceName")    
-    tasks.clone.execute() 
-    tasks.renameProject.execute()
-}
-
-task clone(type: org.ajoberstar.gradle.git.tasks.GitClone) {
-    project.ext.tmpDirectory = "$instanceName-tmp"
-    def destination = file("$tmpDirectory")
-    uri = "$gitRepository"
-    destinationPath = destination
-    bare = false
-    enabled = !destination.exists()
-}
-
-task renameProject << {
-    def projectType = getProjectType()
-    file("$tmpDirectory/" + projectType).renameTo("$projectDirectory")
-    delete "$tmpDirectory" 
-
-    def moduleDirectory = file("$projectDirectory/$instanceName")
-    if (moduleDirectory.exists()) {
-        throw new InvalidUserDataException("module " + moduleDirectory + " is already exists in android-example project")
-    }
-    file("$projectDirectory/$defaultName").renameTo(moduleDirectory)
-
-    def settingsFile = file("$projectDirectory/settings.gradle")
-    def settingsContent = settingsFile.getText()
-    settingsFile.delete()
-    settingsFile << settingsContent.replaceAll("$defaultName", "$instanceName")
-}
-
-String generateProjectDirectory(String projectName) {
+File generateProjectDirectory(String projectName) {
     if (!(projectName ==~ /[a-zA-Z][a-zA-Z0-9]*/)) {
-        throw new InvalidUserDataException("project name ($instanceName) should match [a-zA-Z][a-zA-Z0-9]* pattern")
+        throw new InvalidUserDataException("project name ($projectName) should match [a-zA-Z][a-zA-Z0-9]* pattern")
     }
 
     def matcher = projectName =~ /[A-Z][a-z0-9]*/
-    matcher.collect({ (it.length() > 1 ? "-" : "") + it.toLowerCase() }).join() - '-'
+    String directoryName = matcher.collect({ (it.length() > 1 ? '-' : '') + it.toLowerCase() }).join() - '-'
+    return new File(System.getProperty('user.dir'), directoryName)
 }
 
-String getProjectType() {
-    if (project.hasProperty("projectType")) {
-        project.ext.projectType
-    } else {
-        defaultProjectType        
-    }
+project.ext.projectName = project.hasProperty('instanceName') ? project.getProperty('instanceName') : 'Example'
+project.ext.projectDirectory = generateProjectDirectory(projectName)
+project.ext.tmpDirectory = File.createTempDir(projectName, '')
+project.ext.gitRepository = 'https://github.com/noveogroup/android-project-example.git'
+project.ext.gitProject = project.hasProperty('projectType') ? project.getProperty('projectType') : 'android-simple-example'
+project.ext.gitModule = 'example'
+
+task create(type: org.ajoberstar.gradle.git.tasks.GitClone) {
+    uri = gitRepository
+    destinationPath = tmpDirectory
+    bare = false
+} << {
+    new File(tmpDirectory, gitProject).renameTo(projectDirectory)
+    delete tmpDirectory
+
+    new File(projectDirectory, gitModule).renameTo(new File(projectDirectory, projectName))
+
+    File settingsFile = new File(projectDirectory, 'settings.gradle')
+    String settingsContent = settingsFile.getText()
+    settingsFile.delete()
+    settingsFile << settingsContent.replaceAll(gitModule, projectName)
 }
