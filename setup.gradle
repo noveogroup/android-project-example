@@ -29,7 +29,10 @@ task create(type: org.ajoberstar.gradle.git.tasks.GitClone) {
     destinationPath = tmpDirectory
     bare = false
 } << {
-    new File(tmpDirectory, gitProject).renameTo(projectDirectory)
+    copy {
+        from new File(tmpDirectory, gitProject)
+        into projectDirectory
+    }
     delete tmpDirectory
 
     new File(projectDirectory, gitModule).renameTo(new File(projectDirectory, projectName))
