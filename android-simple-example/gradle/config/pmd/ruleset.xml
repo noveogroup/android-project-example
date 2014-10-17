@@ -14,6 +14,11 @@
     <rule ref="rulesets/java/clone.xml" />
 
     <rule ref="rulesets/java/codesize.xml" />
+    <rule ref="rulesets/java/codesize.xml/CyclomaticComplexity">
+        <properties>
+            <property name="reportLevel" value="20" />
+        </properties>
+    </rule>
     <rule ref="rulesets/java/codesize.xml/TooManyMethods">
         <properties>
             <property name="maxmethods" value="25" />
@@ -35,12 +40,17 @@
     </rule>
 
     <rule ref="rulesets/java/coupling.xml">
+        <exclude name="ExcessiveImports" />
         <exclude name="LawOfDemeter" />
     </rule>
 
     <rule ref="rulesets/java/design.xml">
+        <exclude name="AvoidReassigningParameters" />
         <!-- if (x != y) { short code block } else { long code block } -->
         <exclude name="ConfusingTernary" />
+        <exclude name="SwitchStmtsShouldHaveDefault" />
+        <!-- Android listeners contain a lot of such switch statements -->
+        <exclude name="TooFewBranchesForASwitchStatement" />
     </rule>
 
     <rule ref="rulesets/java/empty.xml" />

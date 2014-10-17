@@ -68,4 +68,7 @@
     <Match>
         <Bug code="UwF" />
     </Match>
+    <Match>
+        <Bug code="SF" />
+    </Match>
 </FindBugsFilter>
