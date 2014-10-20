@@ -6,7 +6,7 @@ buildscript {
 }
 
 allprojects {
-    repositories { jcenter() }
+    repositories { jcenter(); mavenLocal() }
 }
 
 task wrapper(type: Wrapper) {
