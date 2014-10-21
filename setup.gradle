@@ -33,7 +33,7 @@ task create(type: org.ajoberstar.gradle.git.tasks.GitClone) {
         from new File(tmpDirectory, gitProject)
         into projectDirectory
     }
-    delete tmpDirectory
+    ant.delete(dir: tmpDirectory, failonerror: false)
 
     new File(projectDirectory, gitModule).renameTo(new File(projectDirectory, projectName))
 
