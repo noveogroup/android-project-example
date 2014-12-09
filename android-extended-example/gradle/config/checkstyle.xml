@@ -84,7 +84,7 @@
         <!-- See http://checkstyle.sf.net/config_sizes.html -->
         <module name="LineLength">
             <!-- what is a good max value? -->
-            <property name="max" value="120" />
+            <property name="max" value="150" />
             <!-- ignore lines like "$File: //depot/... $" -->
             <property name="ignorePattern" value="\$File.*\$" />
             <property name="severity" value="info" />
@@ -136,8 +136,11 @@
         <module name="InnerAssignment" />
         <module name="MagicNumber">
             <property name="severity" value="info" />
+            <property name="ignoreNumbers" value="-1, 0, 1, 2, 10, 60, 100, 256, 1000" />
         </module>
-        <module name="MissingSwitchDefault" />
+        <module name="MissingSwitchDefault">
+            <property name="severity" value="ignore" />
+        </module>
         <!-- Problem with finding exception types... -->
         <module name="RedundantThrows">
             <property name="allowUnchecked" value="true" />

@@ -4,7 +4,7 @@ configurations { provided }
 sourceSets { main { compileClasspath += configurations.provided } }
 
 dependencies {
-    compile 'com.google.code.gson:gson:2.2.+'
+    compile 'com.google.code.gson:gson:2.3'
     compile 'com.google.android:android:2.1.2'
     compile project(':libs:required-library')
     provided project(':libs:provided-library')
