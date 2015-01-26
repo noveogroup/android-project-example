@@ -21,7 +21,7 @@ project.ext.projectName = project.hasProperty('instanceName') ? project.getPrope
 project.ext.projectDirectory = generateProjectDirectory(projectName)
 project.ext.tmpDirectory = File.createTempDir(projectName, '')
 project.ext.gitRepository = 'https://github.com/noveogroup/android-project-example.git'
-project.ext.gitProject = project.hasProperty('projectType') ? project.getProperty('projectType') : 'android-simple-example'
+project.ext.gitProject = 'android-example'
 project.ext.gitModule = 'example'
 
 task create(type: org.ajoberstar.gradle.git.tasks.GitClone) {
