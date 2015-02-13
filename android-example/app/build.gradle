@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'android-checkstyle'
-apply plugin: 'android-pmd'
+apply plugin: 'com.noveogroup.android.check'
 
 android {
     compileSdkVersion 21
@@ -45,6 +44,8 @@ dependencies {
     compile 'com.github.tony19:logback-android-classic:1.1.1-3'
 }
 
-androidCheckstyle { abortOnError false }
-
-androidPmd { abortOnError false }
+check {
+    abortOnError true
+    checkstyle { config hard() }
+    pmd { config hard() }
+}
