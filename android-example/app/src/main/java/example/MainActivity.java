@@ -6,6 +6,8 @@ import android.os.Bundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import my.example.R;
+
 public class MainActivity extends Activity {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MainActivity.class);
