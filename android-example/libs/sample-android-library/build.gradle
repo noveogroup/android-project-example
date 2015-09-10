@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '23.0.0'
+    buildToolsVersion '23.0.1'
 
     defaultConfig {
         versionCode 1
@@ -19,6 +19,8 @@ android {
     lintOptions {
         abortOnError false
         checkAllWarnings true
+        // there will be a lot of useless lint warnings if delete this line
+        disable 'AllowBackup'
         // for most projects accessibility tools support is out of scope
         disable 'ContentDescription'
         // a lot of Java libraries have references to Java SE packages
@@ -37,5 +39,5 @@ android {
 dependencies {
     compile fileTree(dir: rootProject.file('libs'), include: ['*.jar'])
     compile fileTree(dir: project.file('libs'), include: ['*.jar'])
-    compile 'com.android.support:recyclerview-v7:23.0.0'
+    compile 'com.android.support:recyclerview-v7:23.0.1'
 }
