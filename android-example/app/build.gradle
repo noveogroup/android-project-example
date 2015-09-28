@@ -47,7 +47,7 @@ dependencies {
 }
 
 check {
-    abortOnError true
+    abortOnError false
     checkstyle { config hard() }
     findbugs { config hard() }
     pmd { config hard() }
